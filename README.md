@@ -1,2 +1,40 @@
+<img src="cover.jpg" />
+
 # Stocks-Risk-Analysis
-Perform the financial risk analysis on a stocks portfolio, through Monte Carlo Simulation
+Perform the financial risk analysis on a stocks portfolio, through Monte Carlo Simulation and Multiple Linear Regression.
+
+## Project overview
+### What is the project for
+The goal of this demo is to build a predicion model able to indicate the VaR (Value at Risk) for a given stock portfolio: in other words, an indicator of how much the global value of our stocks will increase/decrease in a given time interval. To be more precise, the VaR indicates (with a given confidence level) the expected lower bound of the losses we can expect.
+
+Given the stock values and the market factors dataset, the first step is to analyze them and pre-process the data (for example: some temporal stock values may be missing). Then, the Linear Regression model is built and the Monte Carlo Simulation run in parallel, over the cluster.
+
+### How to access the project files
+You can find both the original Python Notebook code and an HTML file, that is more portable in terms of readability.
+
+## Technical details
+### Apache Spark
+The framework is used to run (in parallel) 10000 times the MCS. In our case, the parallelism factor was 12.
+
+### Data Science Python libraries
+We have decided to use some of the most famous available Python libraries:
+- Pandas and Numpy: data processing and analysis
+- Scipy and StatsModels: for the statistics
+- Matplotlib and Seaborn: data visualization
+
+### The mathematical model
+The risk analysis starting point is a Multiple Linear Regression model, which tries to predict the two-weeks stock returns starting from 4 market factors. Non-linear dependencies are taken into account, thanks to the featurization (we have considered, for each feature, also its square and square root values).
+
+The market factors we have (for the period: 23/01/2009 - 22/01/2014) are:
+- GSPC value
+- IXIC value
+- The return of crude oil
+- The return of treasury bonds
+
+After the model is built, the MCS (Monte Carlo Simulation) is run 10.000 times. In this way, we can exploit the output obtained probability distribution in order to determine the VaR 5% (Value at Risk: the 5th percentile of the losses).
+
+## Special thanks
+We want to thank you our teacher, <a href="https://github.com/michiard" target="_blank">Michiardi Pietro</a>, who has realized the baseline for the notebook and has guided us during its realization, teaching us all the techniques presented here.
+
+## Credits
+<a href="https://github.com/MrAngius" target="_blank">ANGIUS Marco</a> and <a href="https://github.com/gavalle94" target="_blank">AVALLE Giorgio</a> - Ⓒ2018
